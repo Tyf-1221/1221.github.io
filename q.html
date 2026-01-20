@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>点击切换显示内容（带复制功能）</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
+            font-family: Arial, sans-serif;
+            gap: 20px;
+        }
+        .btn {
+            padding: 12px 24px;
+            background-color: #4285F4;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #3367d6;
+        }
+        .copy-btn {
+            background-color: #34A853;
+        }
+        .copy-btn:hover {
+            background-color: #2d8f46;
+        }
+        .content-display {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2d3748;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .content-display.show {
+            opacity: 1;
+        }
+        .tip {
+            color: #666;
+            font-size: 14px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tip.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <button class="btn" onclick="toggleContent()">点击切换显示/隐藏内容</button>
+    <div class="content-display" id="contentBox">+q3488753155</div>
+    <button class="btn copy-btn" onclick="copyContent()" style="display: none;" id="copyBtn">点击复制内容</button>
+    <div class="tip" id="tip">复制成功！</div>
+
+    <script>
+        function toggleContent() {
+            const contentBox = document.getElementById('contentBox');
+            const copyBtn = document.getElementById('copyBtn');
+            contentBox.classList.toggle("show");
+            copyBtn.style.display = contentBox.classList.contains("show") ? "block" : "none";
+        }
+
+        function copyContent() {
+            const contentBox = document.getElementById('contentBox');
+            const tip = document.getElementById('tip');
+            navigator.clipboard.writeText(contentBox.textContent);
+            tip.classList.add("show");
+            setTimeout(() => {
+                tip.classList.remove("show");
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
